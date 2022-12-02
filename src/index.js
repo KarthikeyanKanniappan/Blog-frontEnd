@@ -7,7 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import AuthReducer from "./redux/features/authSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const store = configureStore({
   reducer: {
     auth: AuthReducer,
@@ -17,9 +17,11 @@ const store = configureStore({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <GoogleOAuthProvider clientId="165062174092-ct7f7gt9gdo2437361h3qonvnvvl41jm.apps.googleusercontent.com">
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { login } from "../redux/features/authSlice";
 import "react-toastify/dist/ReactToastify.css";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -74,6 +75,16 @@ const Login = () => {
                 >
                   SignIn
                 </button>
+              </div>
+              <div className="mt-3">
+                <GoogleLogin
+                  onSuccess={(credentialResponse) => {
+                    console.log(credentialResponse);
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
               </div>
             </form>
             <hr />
