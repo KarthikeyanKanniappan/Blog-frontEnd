@@ -3,9 +3,10 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { login } from "../redux/features/authSlice";
+import { googleSignIn, login } from "../redux/features/authSlice";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -79,7 +80,13 @@ const Login = () => {
               <div className="mt-3">
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
-                    console.log(credentialResponse);
+                    let decoded = jwt_decode(credentialResponse.credential);
+                    const email = decoded.email;
+                    const name = decoded.name;
+                    const token = decoded.jti;
+                    const googleId = decoded.sub;
+                    const result = { email, name, token, googleId };
+                    dispatch(googleSignIn({ result, navigate, toast }));
                   }}
                   onError={() => {
                     console.log("Login Failed");
@@ -94,7 +101,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
