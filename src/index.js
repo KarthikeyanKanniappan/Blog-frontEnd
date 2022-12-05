@@ -6,11 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import AuthReducer from "./redux/features/authSlice";
+import BlogReducer from "./redux/features/blogSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
 const store = configureStore({
   reducer: {
     auth: AuthReducer,
+    blog: BlogReducer,
   },
 });
 

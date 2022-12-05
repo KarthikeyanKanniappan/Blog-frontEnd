@@ -45,7 +45,9 @@ const Header = () => {
               </Nav.Link>
               {user?.result?._id && (
                 <>
-                  <Nav.Link href="#features">Add Blog</Nav.Link>
+                  <Nav.Link as={Link} to="/addBlog">
+                    Add Blog
+                  </Nav.Link>
                   <Nav.Link href="#pricing">Dashboard</Nav.Link>
                 </>
               )}

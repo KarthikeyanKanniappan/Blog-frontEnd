@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/features/authSlice";
+import AddBlog from "./components/AddBlog";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signIn" element={<Register />}></Route>
+          <Route path="/addBlog" element={<AddBlog />}></Route>
         </Routes>
       </>
     </BrowserRouter>

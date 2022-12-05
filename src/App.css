@@ -11,3 +11,33 @@
 .heading-section {
   font-size: 32px;
 }
+
+.tags-input {
+  /* font-family: "Ubuntu Condensed"; */
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-height: 48px;
+  width: 480px;
+  padding: 14px 8px;
+  border: 1px solid rgb(214, 216, 218);
+  border-radius: 6px;
+}
+
+.tags-input input {
+  flex: 1;
+  border: none;
+  /* height: 46px; */
+  /* font-size: 20px; */
+  margin: 0 14px;
+}
+
+.tags-input input:focus {
+  outline: transparent;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .tags-input {
+    width: 350px;
+  }
+}
