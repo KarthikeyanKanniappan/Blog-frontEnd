@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import AddIcon from "@mui/icons-material/Add";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -21,11 +22,13 @@ const AddBlog = () => {
   const { user } = useSelector((state) => ({ ...state.auth }));
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleClick = (event) => {
-    if (event.target.value !== "") {
-      setTags([...tags, event.target.value]);
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    let data = inputRef.current.value;
+    if (data !== "") {
+      setTags([...tags, data]);
     }
-    event.target.value = "";
   };
 
   const handleDelete = (i) => {
@@ -103,29 +106,38 @@ const AddBlog = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <div className="tags-input">
-              <Stack direction="row" spacing={1}>
-                {tags.map((el, i) => {
-                  return (
-                    <Chip
-                      key={i}
-                      label={`${el}`}
-                      variant="outlined"
-                      onDelete={() => {
-                        handleDelete(i);
-                      }}
-                    />
-                  );
-                })}
-              </Stack>
-              <input
-                type="text"
-                onKeyUp={(event) =>
-                  event.key === "Enter" ? handleClick(event) : null
-                }
-                placeholder="Press enter to add tags"
-              />
-            </div>
+            <Stack direction="row" spacing={2}>
+              <div className="tags-input">
+                <Stack direction="row" spacing={1}>
+                  {tags.map((el, i) => {
+                    return (
+                      <Chip
+                        key={i}
+                        label={`${el}`}
+                        variant="outlined"
+                        onDelete={() => {
+                          handleDelete(i);
+                        }}
+                      />
+                    );
+                  })}
+                </Stack>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Press enter to add tags"
+                />
+              </div>
+              <Button
+                onClick={() => {
+                  handleClick();
+                }}
+                variant="outlined"
+                endIcon={<AddIcon />}
+              >
+                Add
+              </Button>
+            </Stack>
           </Grid>
           <Grid item xs={12} sm={6.1}>
             <TextField

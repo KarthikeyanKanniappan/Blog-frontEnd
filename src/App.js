@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/features/authSlice";
-import AddBlog from "./components/AddBlog";
+import AddBlog from "./pages/AddBlog";
+import CardType from "./components/CardType";
+import Blog from "./pages/Blog";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signIn" element={<Register />}></Route>
           <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route path="/blog/:id" element={<Blog />}></Route>
         </Routes>
       </>
     </BrowserRouter>
