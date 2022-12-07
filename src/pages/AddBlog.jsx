@@ -49,16 +49,6 @@ const AddBlog = () => {
       tags: [],
       imageFile: "",
     },
-    // validate: (values) => {
-    //   let errors = {};
-    //   if (values.title === "") {
-    //     errors.title = "Please enter a title ";
-    //   }
-    //   if (values.description === "") {
-    //     errors.description = "Description should not be empty";
-    //   }
-    //   return errors;
-    // },
     onSubmit: (values) => {
       values.tags = tags;
       if (values.title && values.description && values.tags) {

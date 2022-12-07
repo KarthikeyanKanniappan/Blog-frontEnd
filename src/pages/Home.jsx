@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import CardType from "../components/CardType";
+import Spinner from "../components/Spinner";
 import { getBlog } from "../redux/features/blogSlice";
+
 const Home = () => {
   const dispatch = useDispatch();
   const { blogs, loading } = useSelector((state) => ({ ...state.blog }));
@@ -12,7 +13,7 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return <h2>Loading</h2>;
+    return <Spinner />;
   }
 
   return (

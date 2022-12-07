@@ -11,6 +11,7 @@ import { setUser } from "./redux/features/authSlice";
 import AddBlog from "./pages/AddBlog";
 import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
+import EditBlog from "./pages/EditBlog";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/blog/:id" element={<Blog />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/EditBlog/:id" element={<EditBlog />}></Route>
         </Routes>
       </>
     </BrowserRouter>
