@@ -52,6 +52,19 @@ export const getBlogByUser = createAsyncThunk(
   }
 );
 
+export const deleteBlog = createAsyncThunk(
+  "blog/deleteBlog",
+  async ({ id, toast }, { rejectWithValue }) => {
+    try {
+      const response = await api.deleteBlog(id);
+      toast.success("Blog Delete Successfully");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
@@ -103,6 +116,24 @@ const blogSlice = createSlice({
       state.userBlogs = action.payload;
     },
     [getBlogByUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [deleteBlog.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [deleteBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+      console.log("action", action);
+      // const {
+      //   arg: { id },
+      // } = action.meta;
+      // if (id) {
+      //   state.userBlogs = state.userBlogs.filter((item) => item._id !== id);
+      //   state.blogs = state.blogs.filter((item) => item._id !== id);
+      // }
+    },
+    [deleteBlog.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

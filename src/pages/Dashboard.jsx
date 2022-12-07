@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBlogByUser } from "../redux/features/blogSlice";
+import { deleteBlog, getBlogByUser } from "../redux/features/blogSlice";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import EditIcon from "@mui/icons-material/Edit";
+import { toast } from "react-toastify";
 
 const theme = createTheme({
   typography: {
     fontFamily: ["Ubuntu Condensed"].join(","),
   },
 });
+
 const Dashboard = () => {
   const { user } = useSelector((state) => ({ ...state.auth }));
   const { userBlogs, loading } = useSelector((state) => ({ ...state.blog }));
@@ -35,6 +36,11 @@ const Dashboard = () => {
     return str;
   }
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      dispatch(deleteBlog({ id, toast }));
+    }
+  };
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -53,7 +59,6 @@ const Dashboard = () => {
                   height="140"
                   image={`${item.imageFile}`}
                   alt="green iguana"
-                  fluid
                   className="m-4"
                   sx={{ maxWidth: "250px" }}
                 />
@@ -64,12 +69,20 @@ const Dashboard = () => {
                   </Typography>
                 </CardContent>
                 <div className="d-flex m-auto">
-                  <button type="button" class="btn ">
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    type="button"
+                    className="btn"
+                  >
                     <DeleteIcon />
                   </button>
-                  <button type="button" class="btn ">
-                    <SaveAltIcon />
-                  </button>
+                  <Link
+                    to={`/EditBlog/${item._id}`}
+                    type="button"
+                    className="btn "
+                  >
+                    <EditIcon />
+                  </Link>
                 </div>
               </Card>
             </div>

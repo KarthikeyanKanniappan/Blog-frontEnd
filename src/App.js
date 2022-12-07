@@ -12,6 +12,7 @@ import AddBlog from "./pages/AddBlog";
 import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
 import EditBlog from "./pages/EditBlog";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,10 +29,31 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signIn" element={<Register />}></Route>
-          <Route path="/addBlog" element={<AddBlog />}></Route>
+          <Route
+            path="/addBlog"
+            element={
+              <PrivateRoute>
+                <AddBlog />
+              </PrivateRoute>
+            }
+          ></Route>
           <Route path="/blog/:id" element={<Blog />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/EditBlog/:id" element={<EditBlog />}></Route>
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/EditBlog/:id"
+            element={
+              <PrivateRoute>
+                <EditBlog />
+              </PrivateRoute>
+            }
+          ></Route>
         </Routes>
       </>
     </BrowserRouter>

@@ -7,18 +7,13 @@ import CardHeader from "@mui/material/CardHeader";
 import { Chip, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
-
+import moment from "moment";
 const theme = createTheme({
   typography: {
     fontFamily: ["Ubuntu Condensed"].join(","),
   },
 });
 const CardType = ({ item }) => {
-  function parseISOString(s) {
-    let date = new Date(s);
-    let sent = String(date).split(" ");
-    return `${sent[2]}-${sent[1]}-${sent[3]} at ${sent[4]}`;
-  }
   function descriptionLength(str) {
     if (str.length > 45) {
       str = str.substring(0, 45) + "....";
@@ -30,7 +25,7 @@ const CardType = ({ item }) => {
       <Card className="m-2" sx={{ maxWidth: 400 }}>
         <CardHeader
           title={`${item.name}`}
-          subheader={`${parseISOString(item.createdAt)}`}
+          subheader={`${moment(item.createdAt).format("DD-MMM-YYYY")}`}
         />
 
         <CardMedia

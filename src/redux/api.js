@@ -16,3 +16,4 @@ export const getBlog = () => {
 };
 export const particularBlog = (id) => API.get(`/blog/${id}`);
 export const getBlogByUser = (id) => API.get(`/blog/userBlog/${id}`);
+export const deleteBlog = (id) => API.delete(`/blog/${id}`);
