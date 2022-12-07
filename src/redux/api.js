@@ -11,9 +11,8 @@ export const google = (result) => API.post("/users/googleSignIn", result);
 export const createBlog = (value) => {
   return API.post("/blog", value);
 };
-
 export const getBlog = () => {
   return API.get("/blog");
 };
-
 export const particularBlog = (id) => API.get(`/blog/${id}`);
+export const getBlogByUser = (id) => API.get(`/blog/userBlog/${id}`);

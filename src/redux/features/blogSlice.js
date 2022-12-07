@@ -28,6 +28,30 @@ export const getBlog = createAsyncThunk(
   }
 );
 
+export const particularBlog = createAsyncThunk(
+  "blog/particularBlog",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.particularBlog(id);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getBlogByUser = createAsyncThunk(
+  "blog/getBlogByUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await api.getBlogByUser(userId);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
@@ -57,6 +81,28 @@ const blogSlice = createSlice({
       state.blogs = action.payload;
     },
     [getBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [particularBlog.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [particularBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.blog = action.payload;
+    },
+    [particularBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [getBlogByUser.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getBlogByUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.userBlogs = action.payload;
+    },
+    [getBlogByUser.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

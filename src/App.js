@@ -9,8 +9,8 @@ import Home from "./pages/Home";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/features/authSlice";
 import AddBlog from "./pages/AddBlog";
-import CardType from "./components/CardType";
 import Blog from "./pages/Blog";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ function App() {
           <Route path="/signIn" element={<Register />}></Route>
           <Route path="/addBlog" element={<AddBlog />}></Route>
           <Route path="/blog/:id" element={<Blog />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
         </Routes>
       </>
     </BrowserRouter>
