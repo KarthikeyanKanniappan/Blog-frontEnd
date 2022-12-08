@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({
+  baseURL: "https://blog-server-lcn2962ct-karthikeyankanniappan.vercel.app",
+});
 
 // For Login,SignIn and GoogleSignIn
 export const signIn = (formData) => API.post("/users/signin", formData);
