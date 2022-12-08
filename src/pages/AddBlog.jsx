@@ -92,7 +92,8 @@ const AddBlog = () => {
               onChange={formik.handleChange}
               name="description"
               placeholder="Description"
-              style={{ width: 300, height: 150 }}
+              className="Blog-textarea"
+              minRows={6}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

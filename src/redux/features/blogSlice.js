@@ -65,6 +65,20 @@ export const deleteBlog = createAsyncThunk(
   }
 );
 
+export const updateBlog = createAsyncThunk(
+  "blog/updateBlog",
+  async ({ id, updatedBlogData, toast, navigate }, { rejectWithValue }) => {
+    try {
+      const response = await api.updateBlog(updatedBlogData, id);
+      toast.success("Blog Updated Successfully");
+      navigate("/");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
@@ -124,16 +138,36 @@ const blogSlice = createSlice({
     },
     [deleteBlog.fulfilled]: (state, action) => {
       state.loading = false;
-      console.log("action", action);
-      // const {
-      //   arg: { id },
-      // } = action.meta;
-      // if (id) {
-      //   state.userBlogs = state.userBlogs.filter((item) => item._id !== id);
-      //   state.blogs = state.blogs.filter((item) => item._id !== id);
-      // }
+      const {
+        arg: { id },
+      } = action.meta;
+      if (id) {
+        state.userBlogs = state.userBlogs.filter((item) => item._id !== id);
+        state.blogs = state.blogs.filter((item) => item._id !== id);
+      }
     },
     [deleteBlog.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [updateBlog.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [updateBlog.fulfilled]: (state, action) => {
+      state.loading = false;
+      const {
+        arg: { id },
+      } = action.meta;
+      if (id) {
+        state.userBlogs = state.userBlogs.map((item) =>
+          item._id === id ? action.payload : item
+        );
+        state.blogs = state.blogs.map((item) =>
+          item._id === id ? action.payload : item
+        );
+      }
+    },
+    [updateBlog.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },

@@ -13,6 +13,7 @@ import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
 import EditBlog from "./pages/EditBlog";
 import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
               </PrivateRoute>
             }
           ></Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </>
     </BrowserRouter>
