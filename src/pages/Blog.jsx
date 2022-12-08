@@ -46,8 +46,7 @@ const Blog = () => {
             alt="green iguana"
           />
           <Stack className=" mt-3 mx-1" direction="row" spacing={1}>
-            {blog &&
-              blog.tags &&
+            {blog.tags &&
               blog.tags.map((el, i) => {
                 return <Chip key={i} label={`${el}`} />;
               })}
